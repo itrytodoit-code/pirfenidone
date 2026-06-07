@@ -1,0 +1,1726 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pirfenidone 在 IPF 的角色</title>
+  <style>
+    :root {
+      --ink: #17202a;
+      --muted: #607080;
+      --paper: #eef3f6;
+      --slide: #fbfcfd;
+      --line: #d6e0e7;
+      --teal: #0f766e;
+      --blue: #2563eb;
+      --amber: #b7791f;
+      --rose: #be123c;
+      --plum: #6d28d9;
+      --gray: #334155;
+      --shadow: 0 22px 55px rgba(23, 32, 42, 0.16);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(120deg, rgba(15, 118, 110, 0.10), transparent 34%),
+        linear-gradient(260deg, rgba(183, 121, 31, 0.12), transparent 38%),
+        var(--paper);
+      font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", Arial, sans-serif;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    a { color: var(--teal); }
+
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 20;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .nav {
+      width: min(1180px, calc(100vw - 32px));
+      margin-top: 10px;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border: 1px solid rgba(214, 224, 231, 0.86);
+      border-radius: 8px;
+      background: rgba(251, 252, 253, 0.86);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 26px rgba(23, 32, 42, 0.08);
+      pointer-events: auto;
+    }
+
+    .brand {
+      padding: 4px 8px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .navlinks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      justify-content: flex-end;
+    }
+
+    .navlinks a {
+      padding: 5px 8px;
+      border-radius: 6px;
+      color: var(--ink);
+      font-size: 0.84rem;
+      text-decoration: none;
+    }
+
+    .navlinks a:hover {
+      background: #e9f4f3;
+      color: var(--teal);
+    }
+
+    .deck {
+      width: 100vw;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .slide-wrap {
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      scroll-snap-align: start;
+      padding: 0;
+    }
+
+    .slide {
+      position: relative;
+      width: min(100vw, 177.7778vh);
+      height: min(100vh, 56.25vw);
+      aspect-ratio: 16 / 9;
+      min-height: 0;
+      overflow: hidden;
+      border: 1px solid rgba(214, 224, 231, 0.95);
+      border-radius: 0;
+      background: var(--slide);
+      box-shadow: none;
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(15, 118, 110, 0.06), transparent 36%),
+        radial-gradient(circle at 92% 10%, rgba(37, 99, 235, 0.10), transparent 30%);
+      pointer-events: none;
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      padding: clamp(26px, 4.2vh, 48px) clamp(32px, 4.8vw, 64px) clamp(24px, 3.8vh, 44px);
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      gap: clamp(12px, 2vh, 20px);
+    }
+
+    .kicker {
+      color: var(--teal);
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 900px;
+      font-size: clamp(2.5rem, 5.5vw, 5.7rem);
+      line-height: 1.03;
+    }
+
+    h2 {
+      max-width: 900px;
+      font-size: clamp(2rem, 4.2vw, 4.2rem);
+      line-height: 1.08;
+    }
+
+    h3 {
+      font-size: clamp(1.45rem, 2.6vw, 2.35rem);
+      line-height: 1.18;
+    }
+
+    .lead {
+      max-width: 840px;
+      color: #334155;
+      font-size: clamp(1.05rem, 1.7vw, 1.42rem);
+    }
+
+    .big-line {
+      max-width: 900px;
+      color: var(--ink);
+      font-size: clamp(1.28rem, 2.4vw, 2.05rem);
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .body-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 0.82fr);
+      gap: 28px;
+      align-items: center;
+    }
+
+    .body-grid.even {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      min-height: 132px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 8px 22px rgba(23, 32, 42, 0.06);
+    }
+
+    .card p {
+      color: #344255;
+      font-size: clamp(0.95rem, 1.25vw, 1.1rem);
+    }
+
+    .tag {
+      display: inline-flex;
+      margin-bottom: 8px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #e9f4f3;
+      color: var(--teal);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .tag.blue { background: #edf4ff; color: var(--blue); }
+    .tag.amber { background: #fff5df; color: var(--amber); }
+    .tag.rose { background: #fff0f3; color: var(--rose); }
+    .tag.plum { background: #f4efff; color: var(--plum); }
+    .tag.gray { background: #edf1f5; color: var(--gray); }
+
+    .footer {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .slide-no {
+      font-weight: 800;
+      color: #7b8794;
+      white-space: nowrap;
+    }
+
+    .axis-card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(23, 32, 42, 0.07);
+    }
+
+    .trajectory {
+      position: relative;
+      height: 250px;
+      margin: 10px 12px 28px 32px;
+      border-left: 2px solid #9aa7b5;
+      border-bottom: 2px solid #9aa7b5;
+      background:
+        linear-gradient(to top, rgba(15, 118, 110, 0.06), transparent),
+        repeating-linear-gradient(to right, transparent 0 24%, rgba(23, 32, 42, 0.06) 24.5% 25%, transparent 25.5% 49%);
+      overflow: hidden;
+    }
+
+    .trajectory::before,
+    .trajectory::after {
+      content: "";
+      position: absolute;
+      left: 7%;
+      right: 5%;
+      height: 5px;
+      border-radius: 6px;
+      transform-origin: left center;
+    }
+
+    .trajectory::before {
+      top: 56px;
+      background: var(--rose);
+      transform: rotate(18deg);
+    }
+
+    .trajectory::after {
+      top: 86px;
+      background: var(--teal);
+      transform: rotate(10deg);
+    }
+
+    .legend {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .line {
+      display: inline-block;
+      width: 28px;
+      height: 5px;
+      margin-right: 8px;
+      border-radius: 5px;
+      vertical-align: middle;
+    }
+
+    .metric {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .metric-box {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .metric-box strong {
+      display: block;
+      font-size: clamp(1.8rem, 4vw, 3.5rem);
+      line-height: 1.05;
+      color: var(--teal);
+    }
+
+    .metric-box span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .flow {
+      display: grid;
+      gap: 10px;
+    }
+
+    .flow-item {
+      display: grid;
+      grid-template-columns: 58px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+      padding: 13px 15px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .flow-item .num {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #e9f4f3;
+      color: var(--teal);
+      font-weight: 900;
+    }
+
+    .flow-item p {
+      color: #344255;
+      font-size: 1.02rem;
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      font-size: clamp(0.84rem, 1.1vw, 1rem);
+    }
+
+    .compare-table th,
+    .compare-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .compare-table th {
+      background: #f1f5f8;
+      font-weight: 900;
+    }
+
+    .compare-table tr:last-child td { border-bottom: 0; }
+
+    .source-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      font-size: 0.98rem;
+    }
+
+    .source-list li {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .source-list.compact {
+      gap: 6px;
+      font-size: 0.72rem;
+      line-height: 1.25;
+    }
+
+    .source-list.compact li {
+      padding: 7px 9px;
+    }
+
+    .controls {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 30;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      border: 1px solid rgba(214, 224, 231, 0.9);
+      border-radius: 8px;
+      background: rgba(251, 252, 253, 0.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 26px rgba(23, 32, 42, 0.12);
+    }
+
+    .controls button {
+      min-width: 42px;
+      height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .controls button:hover {
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+
+    .progress {
+      min-width: 54px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    @media (max-width: 900px) {
+      html { scroll-snap-type: none; }
+
+      .deck {
+        width: 100vw;
+        padding-top: 0;
+      }
+
+      .slide-wrap {
+        height: 100vh;
+        padding: 0;
+      }
+
+      .slide {
+        width: min(100vw, 177.7778vh);
+        height: min(100vh, 56.25vw);
+        min-height: 0;
+        overflow: auto;
+      }
+
+      .slide-content {
+        padding: 28px 22px 24px;
+        min-height: 100%;
+      }
+
+      .body-grid,
+      .body-grid.even,
+      .cards,
+      .metric,
+      .source-list {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .navlinks {
+        justify-content: flex-start;
+      }
+
+      .controls {
+        right: 10px;
+        bottom: 10px;
+      }
+
+      .topnav {
+        left: 10px;
+        right: 10px;
+        top: 8px;
+        max-width: none;
+        justify-content: center;
+      }
+
+      .topnav button {
+        padding: 5px 8px;
+        font-size: 0.68rem;
+      }
+    }
+
+    @media print {
+      html { scroll-snap-type: none; }
+      body { background: white; }
+      .topbar,
+      .controls,
+      .topnav { display: none; }
+      .deck { width: 100%; padding: 0; }
+      .slide-wrap {
+        min-height: auto;
+        padding: 0;
+        page-break-after: always;
+      }
+      .slide {
+        width: 100vw;
+        height: 56.25vw;
+        min-height: 0;
+        box-shadow: none;
+        border-radius: 0;
+      }
+    }
+    .topnav {
+      position: fixed;
+      right: 16px;
+      top: 12px;
+      z-index: 20;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 5px;
+      max-width: min(720px, calc(100vw - 32px));
+    }
+
+    .topnav button {
+      padding: 6px 10px;
+      border: 1px solid rgba(214, 224, 231, 0.8);
+      border-radius: 6px;
+      background: rgba(251, 252, 253, 0.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 8px rgba(23, 32, 42, 0.10);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--gray);
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: inherit;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      letter-spacing: 0.02em;
+    }
+
+    .topnav button:hover {
+      background: #e9f4f3;
+      color: var(--teal);
+      border-color: var(--teal);
+    }
+
+    .topnav button.active {
+      background: var(--teal);
+      color: #fff;
+      border-color: var(--teal);
+    }
+
+    @media (max-width: 900px) {
+      .topnav {
+        left: 10px;
+        right: 10px;
+        top: 8px;
+        max-width: none;
+        justify-content: center;
+      }
+
+      .topnav button {
+        padding: 5px 8px;
+        font-size: 0.68rem;
+      }
+    }
+
+    .section-label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin: 0 0 4px;
+    }
+
+    .fig-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .fig-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+  </style>
+</head>
+<body>
+  <main class="deck" aria-label="Pirfenidone 16:9 教學畫面">
+    <section class="slide-wrap" id="slide-01" aria-label="封面" data-topic="cover">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">IPF 診療系列</div>
+            <h1>Pirfenidone 在 IPF 的角色</h1>
+          </div>
+          <div class="body-grid">
+            <div>
+              <p class="lead" style="font-size:clamp(1.05rem,1.75vw,1.45rem)">從 Trial Evidence 到 Acute Exacerbation——<br>真實世界有什麼新的佐證？</p>
+              <div style="margin-top:28px;padding-top:20px;border-top:2px solid var(--line)">
+                <p style="margin:0;font-size:clamp(1rem,1.6vw,1.3rem);font-weight:800;color:var(--ink)">［報告者姓名］</p>
+                <p style="margin:6px 0 0;color:var(--muted);font-size:clamp(0.88rem,1.25vw,1.05rem)">胸腔內科｜［醫院名稱］</p>
+              </div>
+            </div>
+            <div class="axis-card">
+              <div class="trajectory"></div>
+              <div class="legend">
+                <span><span class="line" style="background:#be123c"></span>無治療（FVC 快速下降）</span>
+                <span><span class="line" style="background:#0f766e"></span>Pirfenidone（斜率壓低）</span>
+              </div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>［研討會名稱］｜ 2026 年 6 月</span>
+            <span class="slide-no">1 / 19</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-02" aria-label="議程" data-topic="概要">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Outline</div>
+            <h2>今日議程（20 分鐘）</h2>
+          </div>
+          <div class="flow">
+            <div class="flow-item">
+              <span class="num" style="font-size:0.82rem;width:46px;height:46px;border-radius:8px;background:#edf1f5;color:var(--gray)">3 min</span>
+              <p><strong>歷史脈絡</strong>　CAPACITY 的爭議 → ASCEND 的平反 → 2015／2022 Guideline 定位。Pirfenidone 怎麼走到今天？</p>
+            </div>
+            <div class="flow-item">
+              <span class="num" style="font-size:0.82rem;width:46px;height:46px;border-radius:8px;background:#edf4ff;color:var(--blue)">5 min</span>
+              <p><strong>AE-IPF 證據怎麼解讀</strong>　RCT 不是以 AE 預防為主要終點；真實世界資料可做臨床線索，但語氣要保守。</p>
+            </div>
+            <div class="flow-item">
+              <span class="num" style="font-size:0.82rem;width:46px;height:46px;border-radius:8px;background:#fff5df;color:var(--amber)">5 min</span>
+              <p><strong>副作用差異與選藥邏輯</strong>　Pirfenidone vs Nintedanib——不是誰比較強，而是誰更適合這個病人。</p>
+            </div>
+            <div class="flow-item">
+              <span class="num" style="font-size:0.82rem;width:46px;height:46px;border-radius:8px;background:#fff0f3;color:var(--rose)">7 min</span>
+              <p><strong>個案分享與討論</strong>　真實臨床情境 + 開放提問。</p>
+            </div>
+          </div>
+          <div class="footer">
+            <span>Pirfenidone in IPF</span>
+            <span class="slide-no">2 / 19</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-hist" aria-label="歷史脈絡" data-topic="概要">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">概要 ｜ 歷史脈絡</div>
+            <h2>Pirfenidone 怎麼走到今天：從爭議到 Guideline</h2>
+          </div>
+          <div class="flow">
+            <div class="flow-item">
+              <span class="num" style="font-size:0.78rem;width:52px;height:44px;border-radius:8px;background:#edf4ff;color:var(--blue)">2011</span>
+              <p><strong>CAPACITY（Lancet）</strong>　兩個 phase 3 試驗同步發表：Study 004 主要終點達成、Study 006 未達成。FDA 以結果不一致為由暫不核准；EMA 隔年（2012）率先核准。</p>
+            </div>
+            <div class="flow-item">
+              <span class="num" style="font-size:0.78rem;width:52px;height:44px;border-radius:8px;background:#f0fdf4;color:#166534">2014</span>
+              <p><strong>ASCEND（NEJM）</strong>　設計更嚴謹的 phase 3 trial（N=555），主要複合終點清楚達成（p&lt;0.001）。同年 FDA 核准 pirfenidone 與 nintedanib，IPF 正式進入雙藥抗纖維化時代。</p>
+            </div>
+            <div class="flow-item">
+              <span class="num" style="font-size:0.78rem;width:52px;height:44px;border-radius:8px;background:#fff7ed;color:#9a3412">2015</span>
+              <p><strong>ATS/ERS/JRS/ALAT IPF Guideline</strong>　對 pirfenidone 給予 conditional recommendation for use（moderate quality evidence）；與 nintedanib 同為 guideline 支持的選項。</p>
+            </div>
+            <div class="flow-item">
+              <span class="num" style="font-size:0.78rem;width:52px;height:44px;border-radius:8px;background:#f5f3ff;color:var(--plum)">2022</span>
+              <p><strong>ATS/ERS/JRS/ALAT 更新</strong>　IPF 的 pirfenidone 角色延續。新增 PPF guideline：nintedanib 有 conditional recommendation；pirfenidone 建議需更多研究，不可直接外推。</p>
+            </div>
+          </div>
+          <div class="footer">
+            <span>從 2 個不一致的 trial 到清楚的 FDA 核准：ASCEND 是關鍵轉折點。</span>
+            <span class="slide-no"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-03" aria-label="Guideline 概念一" data-topic="指引">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Guideline ｜ 定位</div>
+            <h2>在 IPF，pirfenidone 是 guideline-supported antifibrotic</h2>
+          </div>
+          <div class="body-grid">
+            <p class="big-line">2015 ATS/ERS/JRS/ALAT treatment guideline 建議臨床醫師可在 IPF 使用 pirfenidone。</p>
+            <div class="flow">
+              <div class="flow-item">
+                <span class="num">1</span>
+                <p>確立 IPF 診斷。</p>
+              </div>
+              <div class="flow-item">
+                <span class="num">2</span>
+                <p>評估肺功能、共病、肝腎功能與用藥交互作用。</p>
+              </div>
+              <div class="flow-item">
+                <span class="num">3</span>
+                <p>與 nintedanib 一起列入抗纖維化治療選項。</p>
+              </div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>重點：IPF 是 pirfenidone 最清楚的適用場景。</span>
+            <span class="slide-no">3 / 19</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-04" aria-label="Guideline 概念二" data-topic="指引">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Guideline ｜ Shared Decision-Making</div>
+            <h2>Conditional recommendation 代表需要共同決策</h2>
+          </div>
+          <div class="cards">
+            <article class="card">
+              <span class="tag">Benefit</span>
+              <h3>看重疾病進展變慢</h3>
+              <p>證據主要支持 FVC decline 變慢，以及 progression-free survival 方向上的利益。</p>
+            </article>
+            <article class="card">
+              <span class="tag rose">Trade-off</span>
+              <h3>副作用與服藥負擔很真實</h3>
+              <p>Nausea、rash、photosensitivity、體重下降、肝功能監測，都會影響病人是否願意長期吃。</p>
+            </article>
+            <article class="card">
+              <span class="tag amber">Preference</span>
+              <h3>病人的生活型態要放進來</h3>
+              <p>戶外工作、日曬、一天三次服藥、既有用藥與經濟負擔，都會改變治療選擇。</p>
+            </article>
+          </div>
+          <div class="footer">
+            <span>Conditional 不是弱到不能用，而是提醒要把病人偏好納入。</span>
+            <span class="slide-no">4 / 19</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-05" aria-label="Guideline 概念三" data-topic="指引">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Guideline ｜ PPF 邊界</div>
+            <h2>非 IPF 的 PPF，不要直接外推</h2>
+          </div>
+          <div class="body-grid even">
+            <article class="card">
+              <span class="tag">IPF</span>
+              <h3>Pirfenidone 位置清楚</h3>
+              <p>IPF trial 與 guideline 支持使用 pirfenidone 作為抗纖維化治療選項。</p>
+            </article>
+            <article class="card">
+              <span class="tag amber">Non-IPF PPF</span>
+              <h3>Nintedanib 證據較明確</h3>
+              <p>2022 ATS/ERS/JRS/ALAT guideline 對 nintedanib 有 conditional recommendation；pirfenidone 則建議需要更多研究。</p>
+            </article>
+          </div>
+          <div class="footer">
+            <span>臨床講法：IPF 可以談 pirfenidone；PPF 要先確認疾病類型與證據邊界。</span>
+            <span class="slide-no">5 / 19</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-06" aria-label="Evidence 概念一" data-topic="概要">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Evidence ｜ 核心療效目標</div>
+            <h2>主要證據不是症狀改善，而是 FVC decline 變慢</h2>
+          </div>
+          <div class="body-grid">
+            <div>
+              <p class="big-line">跟病人說「肺功能下降速度變慢」比說「肺會變好」準確。</p>
+              <p class="lead">Pirfenidone 的核心價值是改變 disease trajectory，不是 bronchodilator，也不是急性救援治療。</p>
+            </div>
+            <div class="axis-card">
+              <div class="trajectory"></div>
+              <div class="legend">
+                <span><span class="line" style="background:#be123c"></span>Placebo slope</span>
+                <span><span class="line" style="background:#0f766e"></span>Pirfenidone slope</span>
+              </div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>畫面訊息：抗纖維化治療的期待值要講對。</span>
+            <span class="slide-no">6 / 19</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-ascend1" aria-label="ASCEND 試驗設計" data-topic="RCTs">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Evidence ｜ ASCEND 試驗設計</div>
+            <h2>ASCEND：1,562 人篩選，555 人隨機分組，52 週雙盲</h2>
+          </div>
+          <div class="body-grid">
+            <div>
+              <p class="section-label">收案條件（主要排除理由）</p>
+              <ul style="margin:6px 0 0;padding-left:1.3em;line-height:1.9;font-size:0.93rem">
+                <li>FVC &lt;50% 或 &gt;90% predicted</li>
+                <li>DLCO &lt;30% 或 &gt;90% predicted</li>
+                <li>FEV₁/FVC &lt;0.80（排除阻塞性疾病）</li>
+                <li>CT 呈 emphysema 範圍超過 fibrosis</li>
+              </ul>
+              <p class="section-label" style="margin-top:16px">主要終點</p>
+              <p style="font-size:0.93rem">FVC % predicted <strong>下降 ≥10%</strong> 或<strong>死亡</strong>的複合終點（52 週）。Pirfenidone <strong>2,403 mg/day</strong>（801 mg TID，隨餐）vs Placebo。</p>
+            </div>
+            <div class="fig-wrap">
+              <img src="Reference/ASCEND_fig1.jpg" alt="ASCEND CONSORT flow diagram">
+            </div>
+          </div>
+          <div class="footer">
+            <span>King TE Jr et al., N Engl J Med. 2014;370:2083-2092.</span>
+            <span class="slide-no"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-07" aria-label="Evidence 概念二" data-topic="RCTs">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Evidence ｜ ASCEND 主要終點</div>
+            <h2>主要複合終點達成：ARR 15.3%，NNT ≈ 7，p&lt;0.001</h2>
+          </div>
+          <div class="body-grid">
+            <div>
+              <p class="big-line">主要複合終點：FVC % predicted 下降 ≥10% 或死亡（52 週）</p>
+              <p class="lead"><strong>Pirfenidone 16.5% vs Placebo 31.8%</strong> — ARR 15.3%，NNT ≈ 7，p&lt;0.001</p>
+              <p class="lead" style="margin-top:6px;font-size:0.9em;color:var(--muted)">All-cause mortality：4.0% vs 7.2%（未以 mortality 為主要終點，樣本數不足個別達顯著）</p>
+            </div>
+            <div class="metric">
+              <div class="metric-box">
+                <strong>−2.5%</strong>
+                <span>Pirfenidone FVC % predicted 平均變化（vs −5.5% placebo）</span>
+              </div>
+              <div class="metric-box">
+                <strong>22.7%</strong>
+                <span>無進展率（FVC 未下降，vs 9.7% placebo，p&lt;0.001）</span>
+              </div>
+              <div class="metric-box">
+                <strong>−29 m</strong>
+                <span>6MWT 平均變化（vs −55 m placebo，p=0.04）</span>
+              </div>
+              <div class="metric-box">
+                <strong>NNT ≈ 7</strong>
+                <span>預防 1 例複合終點（FVC 明顯下降或死亡）所需治療人數</span>
+              </div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>King TE Jr et al., NEJM 2014. N=555，52 週，pirfenidone 2,403 mg/day。</span>
+            <span class="slide-no">7 / 19</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-ascend3" aria-label="ASCEND 四大結果" data-topic="RCTs">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Evidence ｜ ASCEND 四大結果</div>
+            <h2>主要終點、FVC 軌跡、6MWT、Progression-free Survival 方向一致</h2>
+          </div>
+          <div class="fig-wrap" style="height:100%">
+            <img src="Reference/ASCEND_fig2.jpg" alt="ASCEND Figure 2 — A: Primary endpoint  B: FVC change  C: 6MWT  D: PFS">
+          </div>
+          <div class="footer">
+            <span>A: 主要終點（FVC ≥10% 下降或死亡）　B: FVC mL 平均變化　C: 6MWT　D: Progression-free survival（HR 0.57，95% CI 0.43–0.77，p&lt;0.001）</span>
+            <span class="slide-no"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-ascend4" aria-label="ASCEND 死亡率" data-topic="RCTs">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Evidence ｜ ASCEND 死亡率</div>
+            <h2>All-cause mortality：單試驗方向正向但未達顯著，合併分析 HR 0.52</h2>
+          </div>
+          <div class="body-grid">
+            <div>
+              <p class="section-label">ASCEND 單獨（未以死亡率為主要終點）</p>
+              <p style="font-size:0.93rem">All-cause mortality：<strong>4.0%</strong>（11/278）vs <strong>7.2%</strong>（20/277），HR 0.55（95% CI 0.26–1.15），p=0.10。方向正向，樣本數不足個別達顯著。</p>
+              <p class="section-label" style="margin-top:16px">ASCEND + CAPACITY 三試驗合併（N≈1,247，post-hoc）</p>
+              <p style="font-size:0.93rem">All-cause mortality HR <strong>0.52</strong>（95% CI 0.31–0.87），p=0.01。IPF-related mortality HR 0.32（0.14–0.76），p=0.006。</p>
+              <p style="margin-top:10px;font-size:0.86rem;color:var(--muted)">⚠️ Post-hoc pooled analysis，非 pre-specified mortality endpoint：方向清楚，但解讀需保守。</p>
+            </div>
+            <div class="fig-wrap">
+              <img src="Reference/ASCEND_table2.jpg" alt="ASCEND Table 2 — Mortality in ASCEND and CAPACITY trials">
+            </div>
+          </div>
+          <div class="footer">
+            <span>King TE Jr et al., NEJM 2014. Table 2. CAPACITY data censored at 1 year to standardize follow-up across 3 trials.</span>
+            <span class="slide-no"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-cap0" aria-label="CAPACITY 試驗背景" data-topic="RCTs">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Evidence ｜ CAPACITY 試驗背景</div>
+            <h2>為什麼兩個 Phase 3 Trial 結果不一樣？</h2>
+          </div>
+          <div class="body-grid even">
+            <article class="card">
+              <span class="tag blue">Study 004 — 主要終點達成</span>
+              <h3>72 週 FVC % predicted 變化：p=0.001</h3>
+              <p>Pirfenidone 2403 mg/day + 1197 mg/day 兩個劑量組 vs Placebo（三臂設計）。N=174 / 87 / 174。</p>
+              <p style="margin-top:8px">72 週時 Pirfenidone 2403 mg 組 FVC 絕對差異 4.4%（相對差 35.3%），p=0.001。</p>
+            </article>
+            <article class="card">
+              <span class="tag gray">Study 006 — 主要終點未達成</span>
+              <h3>72 週 FVC % predicted 變化：p=0.501</h3>
+              <p>Pirfenidone 2403 mg/day vs Placebo（兩臂）。N=171 / 173。結果：−9.0% vs −9.6%（差 0.6%，NS）。</p>
+              <p style="margin-top:8px">可能原因：placebo 組恰巧穩定（抽樣變異）、地域與執行差異。方向與 004 一致，但未達統計顯著。</p>
+            </article>
+          </div>
+          <p style="font-size:0.85rem;color:var(--muted);margin-top:10px">FDA 2011 年以兩 trial 結果不一致為由暫不核准；2014 年 ASCEND 補上這個缺口後才完成核准。</p>
+          <div class="footer">
+            <span>Noble PW et al., Lancet 2011;377:1760-1769.</span>
+            <span class="slide-no"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-08" aria-label="Evidence 概念三" data-topic="RCTs">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Evidence ｜ CAPACITY FVC 軌跡</div>
+            <h2>FVC % predicted 72 週變化：Study 004 顯著，006 NS，合併後一致</h2>
+          </div>
+          <div class="fig-wrap" style="height:100%">
+            <img src="Reference/CAPACITY_fig2.jpg" alt="CAPACITY Figure 2 — FVC % predicted change from baseline">
+          </div>
+          <div class="footer">
+            <span>左 A Study 004（p=0.001）　中 B Study 006（p=0.501，NS）　右 C Combined（p=0.005）。Pirfenidone 2403 mg/day vs Placebo，72 週。</span>
+            <span class="slide-no"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-cap2" aria-label="CAPACITY 存活分析" data-topic="RCTs">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Evidence ｜ CAPACITY 存活分析</div>
+            <h2>Progression-free Survival：Study 004 達顯著，Study 006 NS，合併 HR 0.74</h2>
+          </div>
+          <div class="body-grid">
+            <div>
+              <p class="section-label">三條 KM 曲線的解讀</p>
+              <p style="font-size:0.93rem"><strong>Study 004（圖 A）</strong>　HR 0.64（95% CI 0.44–0.95），p=0.023。Pirfenidone 明顯壓低 PFS 事件率。</p>
+              <p style="font-size:0.93rem;margin-top:8px"><strong>Study 006（圖 B）</strong>　HR 0.84（95% CI 0.58–1.22），p=0.355（NS）。兩組曲線分離幅度小。</p>
+              <p style="font-size:0.93rem;margin-top:8px"><strong>合併分析（圖 C）</strong>　HR 0.74（95% CI 0.57–0.96），p=0.025。整體方向一致，效果量介於兩試驗之間。</p>
+              <p style="margin-top:12px;font-size:0.86rem;color:var(--muted)">虛線（72 週）= 主試驗結束；之後追蹤屬延伸期，退出率高，解讀需保守。</p>
+            </div>
+            <div class="fig-wrap">
+              <img src="Reference/CAPACITY_fig3.jpg" alt="CAPACITY Figure 3 — Progression-free survival KM curves">
+            </div>
+          </div>
+          <div class="footer">
+            <span>Noble PW et al., Lancet 2011;377:1760-1769. Figure 3.</span>
+            <span class="slide-no"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-combined" aria-label="三試驗合併解讀" data-topic="RCTs">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Evidence ｜ 三個 Trial 整體解讀</div>
+            <h2>從 CAPACITY 的爭議到 ASCEND 的確認：證據怎麼讀？</h2>
+          </div>
+          <div class="cards">
+            <article class="card">
+              <span class="tag blue">一致的訊號</span>
+              <h3>FVC 延緩與 PFS 改善</h3>
+              <p>三試驗的 point estimate 方向相同：FVC % predicted 下降被延緩；PFS 均改善（HR 0.57–0.74）。Study 006 主要終點 NS，但幅度與方向不矛盾。</p>
+            </article>
+            <article class="card">
+              <span class="tag">死亡率合併訊號</span>
+              <h3>Post-hoc HR 0.52，p=0.01</h3>
+              <p>三試驗合併 all-cause mortality HR 0.52（0.31–0.87）；IPF-related mortality HR 0.32。方向清楚，但為 post-hoc pooled analysis，強度有限。</p>
+            </article>
+            <article class="card">
+              <span class="tag amber">Clinical Bottom Line</span>
+              <h3>最強一句話怎麼說</h3>
+              <p>Pirfenidone 在 IPF 中能<strong>延緩 FVC 下降斜率</strong>，是 guideline 支持的選項。告訴病人「讓惡化速度變慢」，不說「讓肺功能變好」。</p>
+            </article>
+          </div>
+          <div class="footer">
+            <span>整體證據一致支持延緩進展；不確定性在於死亡率為 post-hoc，Study 006 NS，AE 預防屬觀察性。</span>
+            <span class="slide-no"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-09" aria-label="AE 概念一" data-topic="概要">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Acute Exacerbation ｜ 臨床重要性</div>
+            <h2>Acute Exacerbation of IPF：高死亡率的疾病關卡</h2>
+          </div>
+          <div class="body-grid">
+            <div class="flow">
+              <div class="flow-item">
+                <span class="num">1</span>
+                <p>發生率：IPF 患者每年約 <strong>5–10%</strong> 發生 AE；moderate IPF 更高達 38%。</p>
+              </div>
+              <div class="flow-item">
+                <span class="num">2</span>
+                <p>預後極差：AE-IPF 後中位存活僅 <strong>3–4 個月</strong>；院內死亡率約 50%；1 年存活率 56%，5 年 18%。</p>
+              </div>
+              <div class="flow-item">
+                <span class="num">3</span>
+                <p>AE 是 IPF 死亡率的獨立預測因子：多變量 HR 1.87（95% CI 1.38–2.53，p&lt;0.001），強度超過 FVC、DLCO。</p>
+              </div>
+            </div>
+            <article class="card">
+              <span class="tag">Mechanistic Rationale</span>
+              <h3>為什麼 Pirfenidone 可能有幫助？</h3>
+              <p>Pirfenidone 延緩 disease progression → 維持較高肺功能儲備 → 減少上皮細胞損傷累積（TGF-β1 suppression、抗炎）→ 降低 AE 誘因。</p>
+              <p style="margin-top:10px;color:var(--muted);font-size:0.88em">以下四張畫面是真實世界佐證。注意：均為觀察性或 retrospective 研究，非 RCT 主要終點。</p>
+            </article>
+          </div>
+          <div class="footer">
+            <span>Collard HR et al. AJRCCM 2016；Tsubouchi K et al. BMJ Open Respir Res 2023；Song JW et al. Eur Respir J 2011</span>
+            <span class="slide-no">9 / 19</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-10" aria-label="AE 概念二" data-topic="RWEs">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Acute Exacerbation ｜ 真實世界大數據</div>
+            <h2>抗纖維化藥物顯著延長存活、降低 AE 風險</h2>
+          </div>
+          <div class="body-grid">
+            <div>
+              <p class="big-line">Sci Rep 2020（韓國峨山醫療中心）</p>
+              <p class="lead">回溯性 propensity-matched，抗纖維化組（n=474，其中 pirfenidone <strong>90.5%</strong>）vs 未治療組（n=474），中位追蹤 52 個月。</p>
+              <p class="lead" style="margin-top:8px">AE 後中位存活：<strong style="color:var(--teal)">4 個月（用藥）</strong> vs <strong style="color:var(--rose)">1 個月（未用藥）</strong></p>
+              <p class="lead" style="margin-top:6px;font-size:0.9em;color:var(--muted)">全原因死亡、呼吸相關住院、AE 發生率、AE 後死亡率均顯著降低。</p>
+            </div>
+            <div class="metric">
+              <div class="metric-box">
+                <strong>HR 0.59</strong>
+                <span>All-cause mortality（95% CI 0.48–0.72，p&lt;0.001）</span>
+              </div>
+              <div class="metric-box">
+                <strong>4× longer</strong>
+                <span>AE 後存活：用藥 4 個月 vs 未用藥 1 個月</span>
+              </div>
+              <div class="metric-box">
+                <strong>↓ AE 風險</strong>
+                <span>AE 發生率與 AE 後死亡率均顯著降低</span>
+              </div>
+              <div class="metric-box">
+                <strong>N=948</strong>
+                <span>Propensity-matched，追蹤至 2019 年 6 月</span>
+              </div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>Sci Rep. 2020;10:15620. Asan Medical Center, Seoul, Korea. 回溯性研究。</span>
+            <span class="slide-no">10 / 19</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-11" aria-label="AE 概念三" data-topic="RWEs">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Acute Exacerbation ｜ 直接比較</div>
+            <h2>Pirfenidone vs Nintedanib：AE-IPF 觀察性訊號怎麼看？</h2>
+          </div>
+          <div class="body-grid">
+            <div>
+              <p class="big-line">Respir Med 2021（東邦大學，日本，n=195）</p>
+              <p class="lead">Pirfenidone（n=131）vs Nintedanib（n=64），回溯性，2009–2018。排除 inhaled NAC 干擾、限 first-line 用藥後差異仍顯著。</p>
+              <p class="lead" style="margin-top:8px;color:var(--rose);font-weight:700">多變量分析顯示 nintedanib 組 AE 風險較高；但這是單中心回溯性研究，只能視為 hypothesis-generating。</p>
+            </div>
+            <div class="metric">
+              <div class="metric-box">
+                <strong>4.0%</strong>
+                <span>Pirfenidone AE 發生率（first-line）</span>
+              </div>
+              <div class="metric-box">
+                <strong>16.4%</strong>
+                <span>Nintedanib AE 發生率（first-line），p=0.008</span>
+              </div>
+              <div class="metric-box">
+                <strong>HR 2.937</strong>
+                <span>Nintedanib 相對 Pirfenidone 的 AE 風險（95% CI 1.202–7.179，p=0.018）</span>
+              </div>
+              <div class="metric-box">
+                <strong>5.1% vs 22.6%</strong>
+                <span>整體（含交叉用藥）pirfenidone vs nintedanib AE 率</span>
+              </div>
+            </div>
+          </div>
+          <div class="footer">
+            <span>Respir Med. 2021;187:106551. Toho University Omori Medical Center, Japan. 回溯性研究。</span>
+            <span class="slide-no">11 / 19</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-12" aria-label="AE 概念四" data-topic="RWEs">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Acute Exacerbation ｜ 手術情境</div>
+            <h2>Perioperative Pirfenidone：手術情境最強的保護證據</h2>
+          </div>
+          <div class="body-grid even">
+            <article class="card">
+              <span class="tag">Heart Lung 2025（Meta-analysis）</span>
+              <h3>最高層級：系統性回顧</h3>
+              <p>Perioperative pirfenidone vs standard care</p>
+              <p style="margin-top:10px"><strong>AE 風險降低 69%</strong><br>RR 0.31（95% CI 0.13–0.70）</p>
+              <p style="margin-top:8px"><strong>90-day mortality 降低 81%</strong><br>RR 0.19（95% CI 0.07–0.52）</p>
+              <p style="margin-top:10px;color:var(--muted);font-size:0.88em">Heart Lung. 2025 Nov-Dec;74:266-275</p>
+            </article>
+            <article class="card">
+              <span class="tag blue">Respirology 2021（日本資料庫，N=631）</span>
+              <h3>Propensity-matched 真實世界</h3>
+              <p>術前 pirfenidone（n=121）vs 對照（n=510，1:4 matched）</p>
+              <p style="margin-top:10px">嚴重呼吸道併發症：<strong>2.5% vs 8.5%</strong></p>
+              <p><strong>OR 0.24（95% CI 0.07–0.76，p=0.015）</strong></p>
+              <p>= 術後嚴重併發症風險降低 <strong>76%</strong></p>
+              <p style="margin-top:10px;color:var(--muted);font-size:0.88em">Respirology. 2021;26(6):590-596</p>
+            </article>
+          </div>
+          <div class="footer">
+            <span>手術誘發 AE 的 trigger 機轉清楚（急性肺損傷），為 mechanism-based 的最強場景；一般 IPF AE 的 generalizability 仍有限。</span>
+            <span class="slide-no">12 / 19</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-13" aria-label="AE 概念五" data-topic="RWEs">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Acute Exacerbation ｜ AE 後存活</div>
+            <h2>AE 已經發生了：繼續用 Pirfenidone 還有意義嗎？</h2>
+          </div>
+          <div class="body-grid even">
+            <article class="card">
+              <span class="tag">Respir Med 2017（日本，n=47 AE patients）</span>
+              <h3>AE 後 3 個月存活率</h3>
+              <p>單中心回溯性，東邦大學大森醫院。AE 前後繼續 / 新增 pirfenidone vs 未使用。</p>
+              <p style="margin-top:12px">With pirfenidone：<strong style="font-size:1.6em;color:var(--teal)">55%</strong></p>
+              <p>Without pirfenidone：<strong style="font-size:1.6em;color:var(--rose)">34%</strong></p>
+              <p style="margin-top:10px;color:var(--muted);font-size:0.88em">Respir Med. 2017 May;126:93-99</p>
+            </article>
+            <article class="card">
+              <span class="tag rose">Curr Med Res Opin 2019（義大利 RICU，n=20）</span>
+              <h3>RICU 收治後中位存活</h3>
+              <p>Pirfenidone（n=11）vs Control（n=9）；所有患者均接受標準支持治療。</p>
+              <p style="margin-top:12px">Pirfenidone：<strong style="font-size:1.6em;color:var(--teal)">137 天</strong>（95% CI 39–373）</p>
+              <p>Control：<strong style="font-size:1.6em;color:var(--rose)">16 天</strong>（95% CI 14–22）</p>
+              <p><strong>HR for death：0.29（0.10–0.88，p=0.0009）</strong></p>
+              <p style="margin-top:10px;color:var(--muted);font-size:0.88em">Curr Med Res Opin. 2019;35(7):1187-1190</p>
+            </article>
+          </div>
+          <div class="footer">
+            <span>兩篇均為小樣本回溯性研究（n=20/47），數字戲劇性但需謹慎解讀。臨床意涵：AE 後不應自動停藥。</span>
+            <span class="slide-no">13 / 19</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-14" aria-label="副作用" data-topic="Others">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Adverse Events</div>
+            <h2>Pirfenidone 副作用輪廓（ASCEND Trial，N=278）</h2>
+          </div>
+          <div class="body-grid">
+            <div>
+              <p class="section-label">需要提前告知的重點</p>
+              <p style="font-size:0.9rem"><span class="tag rose" style="display:inline-block;margin-bottom:4px">GI + 皮膚</span><br>Nausea <strong>36% vs 13%</strong>、rash <strong>28% vs 9%</strong>、photosensitivity <strong>9% vs 1%</strong>。GI 副作用在 titration 期最明顯，<strong>隨餐服藥</strong>可大幅減輕。</p>
+              <p style="font-size:0.9rem;margin-top:10px"><span class="tag amber" style="display:inline-block;margin-bottom:4px">肝功能監測</span><br>ALT/AST &gt;3× ULN 約 2–3%。治療前基準值 → 前 6 個月每月 → 之後每 3 個月。</p>
+              <p style="font-size:0.9rem;margin-top:10px"><span class="tag plum" style="display:inline-block;margin-bottom:4px">CYP1A2 交互作用</span><br>Fluvoxamine（禁忌）、Ciprofloxacin（需調整）。<strong>抽菸可使暴露量降低 ~50%</strong>，顯著影響療效。</p>
+            </div>
+            <div class="fig-wrap">
+              <img src="Reference/ASCEND_table3.jpg" alt="ASCEND Table 3 — Adverse Events">
+            </div>
+          </div>
+          <div class="footer">
+            <span>副作用不是附錄，是能不能持續治療的核心。ASCEND trial Table 3；ESBRIET DailyMed label 2025。</span>
+            <span class="slide-no"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-15" aria-label="比較概念一" data-topic="Others">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">選藥邏輯 ｜ 適合 Pirfenidone 的情境</div>
+            <h2>哪些病人可能比較適合 pirfenidone？</h2>
+          </div>
+          <div class="cards">
+            <article class="card">
+              <span class="tag">Diarrhea 困擾</span>
+              <h3>Nintedanib diarrhea 難控制</h3>
+              <p>若腹瀉明顯影響生活或曾因此停藥，pirfenidone 可作為替代抗纖維化選項。</p>
+            </article>
+            <article class="card">
+              <span class="tag">出血風險</span>
+              <h3>避開 VEGFR 相關疑慮</h3>
+              <p>正在 full anticoagulation、出血風險高、GI perforation 風險高者，nintedanib 需更謹慎。</p>
+            </article>
+            <article class="card">
+              <span class="tag">AE 風險疑慮高</span>
+              <h3>觀察性資料可參考</h3>
+              <p>若病人 AE 風險偏高，可提到 Respir Med 2021 的單中心回溯性訊號；但不能把它當作兩藥 AE 預防優劣的定論。</p>
+            </article>
+          </div>
+          <div class="footer">
+            <span>選 pirfenidone 的理由主要來自副作用與共病配對；AE 相關觀察性資料只能作輔助討論。</span>
+            <span class="slide-no">15 / 19</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-16" aria-label="比較概念二" data-topic="Others">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">選藥邏輯 ｜ 適合 Nintedanib 的情境</div>
+            <h2>哪些情境可能比較偏向 nintedanib？</h2>
+          </div>
+          <div class="cards">
+            <article class="card">
+              <span class="tag amber">戶外日曬多</span>
+              <h3>Photosensitivity 麻煩</h3>
+              <p>戶外工作、務農或長時間日照者，pirfenidone 的 rash/photosensitivity 可能很影響生活。</p>
+            </article>
+            <article class="card">
+              <span class="tag amber">服藥頻率</span>
+              <h3>一天兩次較容易</h3>
+              <p>Nintedanib 一天兩次；pirfenidone 一天三次。長期 adherence 直接影響真實療效。</p>
+            </article>
+            <article class="card">
+              <span class="tag amber">PPF / SSc-ILD</span>
+              <h3>非 IPF 證據較清楚</h3>
+              <p>慢性纖維化 ILD with progressive phenotype 與 SSc-ILD，nintedanib 的 label 與 2022 guideline 支持較直接。</p>
+            </article>
+          </div>
+          <div class="footer">
+            <span>不是 pirfenidone 不好，而是某些臨床場景 nintedanib 證據位置更清楚。</span>
+            <span class="slide-no">16 / 19</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-17" aria-label="比較總表" data-topic="Others">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">選藥邏輯 ｜ 比較總表</div>
+            <h2>用「病人配對」取代「誰比較強」</h2>
+          </div>
+          <table class="compare-table" aria-label="Pirfenidone 與 nintedanib 比較表">
+            <thead>
+              <tr>
+                <th>面向</th>
+                <th>Pirfenidone</th>
+                <th>Nintedanib</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>IPF 療效</td>
+                <td>Guideline-supported；主要證據延緩 FVC decline（ASCEND/CAPACITY）。</td>
+                <td>同為 guideline-supported；主要證據也是延緩 FVC decline（INPULSIS）。</td>
+              </tr>
+              <tr>
+                <td>非 IPF PPF</td>
+                <td>需要更多研究；不建議直接外推。</td>
+                <td>2022 guideline 有 conditional recommendation（INBUILD trial）。</td>
+              </tr>
+              <tr>
+                <td>AE-IPF 證據</td>
+                <td>有觀察性研究顯示 AE 發生率較低，但非 head-to-head RCT，確定性低。</td>
+                <td>同一回溯性研究中 AE 發生率較高；需注意 indication bias 與單中心限制。</td>
+              </tr>
+              <tr>
+                <td>主要副作用</td>
+                <td>Nausea ~36%、rash ~28%、photosensitivity ~9%、CYP1A2 交互作用、抽菸影響暴露。</td>
+                <td>Diarrhea 最突出；另有 bleeding、arterial thromboembolic events、GI perforation 風險。</td>
+              </tr>
+              <tr>
+                <td>服藥方式</td>
+                <td>801 mg TID，需 titration，隨餐服用。</td>
+                <td>150 mg BID，約 12 小時間隔，隨餐服用。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="footer">
+            <span>共同點：都不是立即改善 dyspnea 的藥；都需監測肝功能；兩者無頭對頭 RCT。</span>
+            <span class="slide-no">17 / 19</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-nma" aria-label="Network meta-analysis" data-topic="Others">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Network Meta-analysis ｜ 誰比較好？</div>
+            <h2>沒有穩定勝者：efficacy 大致相近，選藥靠病人配對</h2>
+          </div>
+          <table class="compare-table" aria-label="Nintedanib 與 pirfenidone network meta-analysis 整理">
+            <thead>
+              <tr>
+                <th>研究</th>
+                <th>主要比較結果</th>
+                <th>臨床解讀</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Loveman 2015</td>
+                <td>間接比較曾顯示 nintedanib 在 continuous FVC decline 可能較佳。</td>
+                <td>早期 NMA，結論受 endpoint 定義與模型影響。</td>
+              </tr>
+              <tr>
+                <td>Rochwerg 2016</td>
+                <td>Mortality：pirfenidone vs nintedanib 無顯著差異。</td>
+                <td>強調沒有 direct head-to-head trial。</td>
+              </tr>
+              <tr>
+                <td>Skandamis 2019</td>
+                <td>FVC decline ≥10%、acute exacerbation、mortality、SAE：兩藥無顯著差異。</td>
+                <td>兩者皆有效，沒有可宣稱 superiority 的結果。</td>
+              </tr>
+              <tr>
+                <td>Scott 2019</td>
+                <td>不同 NMA 方法會改變「誰較好」的答案。</td>
+                <td>避免把單一 NMA 排名當成治療排序。</td>
+              </tr>
+              <tr>
+                <td>Wu 2024</td>
+                <td>兩者均減緩肺功能下降；FVC ≥10% decline 的效果量相近。</td>
+                <td>最新 RCT-based NMA 仍支持「兩者皆可」。</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="footer">
+            <span>投影片用語：No guideline-level or NMA-consistent winner. 選藥看 AE profile、共病、交互作用、服藥頻率與病人偏好。</span>
+            <span class="slide-no"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-practice" aria-label="臨床實作重點" data-topic="Others">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">臨床實作</div>
+            <h2>開始用 Pirfenidone 前，確認這 5 件事</h2>
+          </div>
+          <div class="flow">
+            <div class="flow-item">
+              <span class="num">1</span>
+              <p><strong>診斷確認</strong>　IPF（UIP pattern）？還是 PPF？兩者的 pirfenidone 證據地位不同，不可混用。</p>
+            </div>
+            <div class="flow-item">
+              <span class="num">2</span>
+              <p><strong>基線肺功能</strong>　FVC 50–90%、DLCO 30–90% 是 ASCEND 收案範圍，也是 guideline 推薦族群。</p>
+            </div>
+            <div class="flow-item">
+              <span class="num">3</span>
+              <p><strong>CYP1A2 交互作用</strong>　確認有無 fluvoxamine（禁忌）、ciprofloxacin（需調整）；確認是否抽菸（暴露量可降低 ~50%）。</p>
+            </div>
+            <div class="flow-item">
+              <span class="num">4</span>
+              <p><strong>肝功能基準值</strong>　開始前抽 ALT/AST；前 6 個月每月監測，之後每 3 個月。</p>
+            </div>
+            <div class="flow-item">
+              <span class="num">5</span>
+              <p><strong>Titration + 隨餐</strong>　前 2 週 267 mg TID → 2 週 534 mg TID → 完整劑量 801 mg TID（2,403 mg/day）；隨餐服藥可大幅減少 nausea。</p>
+            </div>
+          </div>
+          <div class="footer">
+            <span>ESBRIET DailyMed label 2025；2015 ATS/ERS/JRS/ALAT IPF guideline。</span>
+            <span class="slide-no"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-18" aria-label="個案分享" data-topic="Others">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Case</div>
+            <h2>個案分享</h2>
+          </div>
+          <div class="body-grid" style="align-items:start">
+            <div>
+              <p class="section-label">基本資料</p>
+              <p>［待補：年齡、性別、病程、肺功能基線、用藥選擇理由］</p>
+            </div>
+            <div>
+              <p class="section-label">臨床過程</p>
+              <p>［待補：治療反應、副作用處理、後續追蹤 FVC 變化］</p>
+            </div>
+          </div>
+          <div class="footer">
+            <span>個案供教學討論，已去識別化處理。</span>
+            <span class="slide-no">18 / 19</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-disc1" aria-label="討論題一" data-topic="Others">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">討論</div>
+            <h2>Q1：這位病人，你會怎麼選藥？</h2>
+          </div>
+          <div class="body-grid">
+            <div>
+              <p class="big-line">65 歲男性，確診 IPF（UIP），FVC 72%，DLCO 55%。</p>
+              <p class="lead" style="margin-top:14px">同時有：<br>・正在服用 <strong>fluvoxamine</strong>（精神科共病）<br>・每天戶外工作 8 小時<br>・3 年前 upper GI bleed 病史（已治癒）</p>
+              <p class="lead" style="margin-top:14px;color:var(--muted)">Pirfenidone 或 Nintedanib？需要什麼額外評估？</p>
+            </div>
+            <article class="card">
+              <span class="tag amber">思考方向</span>
+              <h3>需要平衡的因素</h3>
+              <p>Fluvoxamine → strong CYP1A2 inhibitor → pirfenidone 禁忌或需大幅調整劑量</p>
+              <p style="margin-top:6px">戶外工作 → photosensitivity 風險高 → pirfenidone 需嚴格防曬</p>
+              <p style="margin-top:6px">GI bleed 史 → nintedanib 出血風險需評估</p>
+              <p style="margin-top:10px;font-weight:700;color:var(--teal)">→ Shared decision-making 的典型場景</p>
+            </article>
+          </div>
+          <div class="footer">
+            <span>討論用，無標準答案。</span>
+            <span class="slide-no"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-disc2" aria-label="討論題二" data-topic="Others">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">討論</div>
+            <h2>Q2：病人發生 AE，還需要繼續 Pirfenidone 嗎？</h2>
+          </div>
+          <div class="body-grid">
+            <div>
+              <p class="big-line">使用 pirfenidone 一年後，因 AE-IPF 住院，插管進 ICU。</p>
+              <p class="lead" style="margin-top:14px">1. AE 期間要停 pirfenidone 嗎？<br>2. 出院後是否繼續原藥？</p>
+              <p class="lead" style="margin-top:14px;font-size:0.9em;color:var(--muted)">參考：Respir Med 2017 — AE 後繼續 pirfenidone 者 3 個月存活 55% vs 34%<br>Curr Med Res Opin 2019 — 中位存活 137 天 vs 16 天（HR 0.29，p=0.0009）</p>
+            </div>
+            <article class="card">
+              <span class="tag rose">注意這兩篇的限制</span>
+              <h3>N=47 與 N=20，回溯性</h3>
+              <p>兩篇均為單中心、小樣本、回溯性研究，無法得出「AE 時繼續 pirfenidone 一定有效」的結論。</p>
+              <p style="margin-top:8px">「AE 後自動停藥」同樣缺乏依據。</p>
+              <p style="margin-top:10px;font-weight:700;color:var(--teal)">現行共識：AE 時個別判斷，不自動停藥。</p>
+            </article>
+          </div>
+          <div class="footer">
+            <span>討論用。</span>
+            <span class="slide-no"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-home" aria-label="Take-home Messages" data-topic="Others">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">Take-home Messages</div>
+            <h2>記得這 5 件事就夠了</h2>
+          </div>
+          <div class="flow">
+            <div class="flow-item">
+              <span class="num" style="background:#e0fdf4;color:#065f46">1</span>
+              <p><strong>Pirfenidone 改的是斜率，不是方向。</strong>告訴病人「下降速度變慢」，不說「肺功能會變好」。</p>
+            </div>
+            <div class="flow-item">
+              <span class="num" style="background:#e0fdf4;color:#065f46">2</span>
+              <p><strong>ASCEND 是關鍵 trial。</strong>Primary composite endpoint NNT ≈ 7，PFS HR 0.57，死亡率方向正向（pooled HR 0.52，post-hoc）。</p>
+            </div>
+            <div class="flow-item">
+              <span class="num" style="background:#e0fdf4;color:#065f46">3</span>
+              <p><strong>AE-IPF 的資料要分層解讀。</strong>真實世界研究可提供線索，但不是 RCT 主要終點，也不能證明 pirfenidone 優於 nintedanib。</p>
+            </div>
+            <div class="flow-item">
+              <span class="num" style="background:#e0fdf4;color:#065f46">4</span>
+              <p><strong>副作用是能不能持續治療的核心。</strong>Nausea、rash、photosensitivity 提前說好；titration + 隨餐服藥降低 GI 不耐受。</p>
+            </div>
+            <div class="flow-item">
+              <span class="num" style="background:#e0fdf4;color:#065f46">5</span>
+              <p><strong>選藥是配對，不是排名。</strong>病人風險、共病、服藥習慣、副作用偏好，決定 pirfenidone vs nintedanib。</p>
+            </div>
+          </div>
+          <div class="footer">
+            <span>謝謝聆聽。</span>
+            <span class="slide-no"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide-wrap" id="slide-19" aria-label="來源" data-topic="references">
+      <div class="slide">
+        <div class="slide-content">
+          <div>
+            <div class="kicker">References</div>
+            <h2>主要來源</h2>
+          </div>
+          <ul class="source-list compact">
+            <li><a href="https://www.atsjournals.org/doi/10.1164/rccm.201506-1063ST">2015 ATS/ERS/JRS/ALAT IPF guideline（Raghu G et al.）</a></li>
+            <li><a href="https://www.atsjournals.org/doi/10.1164/rccm.202202-0399ST">2022 ATS/ERS/JRS/ALAT IPF update &amp; PPF guideline（Raghu G et al.）</a></li>
+            <li><a href="https://www.nejm.org/doi/full/10.1056/NEJMoa1402582">ASCEND trial — King TE Jr et al., NEJM 2014（N=555）</a></li>
+            <li><a href="https://www.sciencedirect.com/science/article/pii/S0140673611604054">CAPACITY trials — Noble PW et al., Lancet 2011（Study 004 &amp; 006）</a></li>
+            <li><a href="https://link.springer.com/article/10.1186/s12890-015-0034-y">Loveman et al., BMC Pulm Med 2015：new treatments NMA</a></li>
+            <li><a href="https://link.springer.com/article/10.1186/s12916-016-0558-x">Rochwerg et al., BMC Medicine 2016：IPF treatment NMA</a></li>
+            <li><a href="https://doi.org/10.1080/21556660.2019.1597726">Skandamis et al., Journal of Drug Assessment 2019：approved medicines NMA</a></li>
+            <li><a href="https://doi.org/10.3390/medicina55080443">Scott et al., Medicina 2019：NMA methodology review</a></li>
+            <li><a href="https://link.springer.com/article/10.1186/s12890-024-02861-w">Wu et al., BMC Pulm Med 2024：RCT-based NMA</a></li>
+            <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10952210/">TSANZ revision — Jo HE et al., Respirology 2024</a></li>
+            <li><a href="https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=81f17f7d-cb04-4052-8682-dd3e330210ab">ESBRIET（pirfenidone）DailyMed label, 2025</a></li>
+            <li><a href="https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=da1c9f37-779e-4682-816f-93d0faa4cfc9">OFEV（nintedanib）DailyMed label, 2025</a></li>
+            <li>Sci Rep. 2020;10:15620（韓國 Asan，antifibrotic vs 無治療，N=948）</li>
+            <li>Respir Med. 2021;187:106551（東邦大學，pirfenidone vs nintedanib AE，N=195）</li>
+            <li>Respir Med. 2017;126:93-99（東邦大學，AE 後 3 個月存活，N=47）</li>
+            <li>Curr Med Res Opin. 2019;35(7):1187-1190（義大利 RICU，AE 後存活，N=20）</li>
+            <li>Heart Lung. 2025;74:266-275（Meta-analysis，perioperative pirfenidone）</li>
+            <li>Respirology. 2021;26(6):590-596（日本，perioperative AE 預防，N=631）</li>
+          </ul>
+          <div class="footer">
+            <span>最後更新：2026-06-07。內容供教學與臨床討論，不取代個別病人治療決策。</span>
+            <span class="slide-no">19 / 19</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="topnav" aria-label="主題導覽">
+    <button type="button" data-jump="概要">概要</button>
+    <button type="button" data-jump="指引">指引</button>
+    <button type="button" data-jump="RCTs">RCTs</button>
+    <button type="button" data-jump="RWEs">RWEs</button>
+    <button type="button" data-jump="Others">Others</button>
+  </nav>
+
+  <div class="controls" aria-label="投影片控制">
+    <button type="button" id="prevSlide" aria-label="上一頁">‹</button>
+    <span class="progress" id="progress">1 / 19</span>
+    <button type="button" id="nextSlide" aria-label="下一頁">›</button>
+  </div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll(".slide-wrap"));
+    const progress = document.getElementById("progress");
+    const prev = document.getElementById("prevSlide");
+    const next = document.getElementById("nextSlide");
+    const topnavBtns = Array.from(document.querySelectorAll(".topnav button"));
+
+    // 動態填入每張投影片的頁碼
+    slides.forEach((slide, i) => {
+      const no = slide.querySelector(".slide-no");
+      if (no) no.textContent = `${i + 1} / ${slides.length}`;
+    });
+
+    function currentIndex() {
+      const middle = window.scrollY + window.innerHeight / 2;
+      let active = 0;
+      slides.forEach((slide, index) => {
+        if (slide.offsetTop <= middle) active = index;
+      });
+      return active;
+    }
+
+    function updateProgress() {
+      const idx = currentIndex();
+      progress.textContent = `${idx + 1} / ${slides.length}`;
+      // 高亮對應的 topic 按鈕
+      const currentTopic = slides[idx]?.dataset.topic;
+      topnavBtns.forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.jump === currentTopic);
+      });
+    }
+
+    function goTo(index) {
+      const bounded = Math.max(0, Math.min(index, slides.length - 1));
+      slides[bounded].scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // Topic 跳頁：點到該 topic 的第一張投影片
+    topnavBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const topic = btn.dataset.jump;
+        const target = slides.find(s => s.dataset.topic === topic);
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    prev.addEventListener("click", () => goTo(currentIndex() - 1));
+    next.addEventListener("click", () => goTo(currentIndex() + 1));
+
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight" || event.key === "PageDown") {
+        event.preventDefault();
+        goTo(currentIndex() + 1);
+      }
+      if (event.key === "ArrowLeft" || event.key === "PageUp") {
+        event.preventDefault();
+        goTo(currentIndex() - 1);
+      }
+      if (event.key === "Home") {
+        event.preventDefault();
+        goTo(0);
+      }
+      if (event.key === "End") {
+        event.preventDefault();
+        goTo(slides.length - 1);
+      }
+    });
+
+    updateProgress();
+  </script>
+</body>
+</html>
