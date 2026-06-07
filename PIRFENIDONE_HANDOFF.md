@@ -10,6 +10,18 @@
 
 ## 2026-06-08 Codex
 
+### GitHub 發布補充
+
+- 使用者提供 GitHub repo：`https://github.com/itrytodoit-code/pirfenidone.git`。
+- 已在 `MSGH/Pirfenidone/` 初始化獨立 Git repo。
+- 因 Git ownership 保護，已將本專案路徑加入 Git `safe.directory`。
+- 因本機 Git 未設定作者，已在此 repo local config 設定：
+  - `user.name=Codex`
+  - `user.email=codex@local`
+- 已設定遠端 `origin`。
+- 已建立 initial commit：`02af3b8 Initial pirfenidone teaching deck`。
+- 已成功 push `main` 到 GitHub。
+
 ### 本次任務
 
 使用者要求：
